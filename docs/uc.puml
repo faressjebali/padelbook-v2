@@ -1,0 +1,25 @@
+@startuml
+title PadelBook - Diagramme de cas d'utilisation
+left to right direction
+actor Joueur
+actor "Gérant" as Gerant
+actor "Système de paiement" as Paiement
+rectangle PadelBook {
+    usecase "UC1 - S'inscrire/s'authentifier" as UC1
+    usecase "UC2 - Consulter les disponibilités" as UC2
+    usecase "UC3 - Réserver un créneau" as UC3
+    usecase "UC4 - Payer la réservation en ligne" as UC4
+    usecase "UC5 - Annuler une réservation" as UC5
+    usecase "UC6 - Gérer les terrains et créneaux" as UC6
+}
+Joueur --> UC1
+Joueur --> UC2
+Joueur --> UC3
+Joueur --> UC5
+Gerant --> UC6
+UC4 --> Paiement
+
+UC3 ..> UC4: <<include>>
+
+
+@enduml

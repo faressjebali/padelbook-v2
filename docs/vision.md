@@ -34,7 +34,7 @@
 | UC1 | 1 | 1 | 2 | 3 |
 | UC6 | 2 | 1 | 1 | 3 |
 
-→ On traite d'abord **UC3**, le UC à
+→ On traite d'abord **UC3**, le UC à risque technique
 
 ## 5. Planification
 | Phase | Itération | Contenu | Jalon (tag) |

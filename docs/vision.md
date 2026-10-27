@@ -37,7 +37,7 @@
 → On traite d'abord **UC3**, le UC à risque technique.
 
 ## 5. Planification
-| Phase | Itération | Contenu | Jalo
+| Phase | Itération | Contenu | Jalons
 |---|---|---|---|
 | Inception | – | vision, acteurs, U
 | Élaboration | It1 | architecture de base UC3 + CI | `v0.1-elaboration` |

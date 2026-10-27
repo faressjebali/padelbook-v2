@@ -34,13 +34,13 @@
 | UC1 | 1 | 1 | 2 | 3 |
 | UC6 | 2 | 1 | 1 | 3 |
 
-→ On traite d'abord **UC3**, le UC à risque technique.
+→ On traite d'abord **UC3**, le UC à
 
 ## 5. Planification
-| Phase | Itération | Contenu | Jalo
+| Phase | Itération | Contenu | Jalon (tag) |
 |---|---|---|---|
-| Inception | – | vision, acteurs, U
+| Inception | – | vision, acteurs, UC | Objectifs |
 | Élaboration | It1 | architecture de base UC3 + CI | `v0.1-elaboration` |
-| Construction | It2 | UC3 complet, n` |
+| Construction | It2 | UC3 complet, UC4, UC2 | `v0.2-construction` |
 | Construction | It3 | UC5, UC1, UC6 | `v0.3-construction` |
-| Transition | – | déploiement, reto
+| Transition | – | déploiement, retours utilisateurs | `v1.0` |

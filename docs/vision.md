@@ -23,6 +23,9 @@
 | UC4 | Payer la réservation en ligne | Joueur, Système de paiement |
 | UC5 | Annuler une réservation | Joueur |
 | UC6 | Gérer les terrains et créneaux | Gérant |
+**Règles métier :**
+- Une réservation n'est confirmée qu'après paiement (UC3 inclut UC4).
+- Une annulation ne donne pas lieu à remboursement.
 
 ## 4. Priorisation (1 = faible, 3 = fort)
 | UC | Valeur métier | Risque | Impact architecture | Priorité |

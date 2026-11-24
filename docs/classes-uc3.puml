@@ -1,0 +1,62 @@
+@startuml
+title PadelBook - Diagramme de classes UC3 (Réserver un créneau)
+skinparam classAttributeIconSize 0
+
+package "Contrôleur" {
+  class ReservationController <<controller>> {
+    + reserver(demande : ReservationRequest) : dict
+  }
+  class ReservationRequest {
+    + joueur_id : int
+    + creneau_id : int
+  }
+}
+
+package "Service" {
+  class ReservationService {
+    + reserver(joueur_id : int, creneau_id : int) : dict
+  }
+  class CreneauIntrouvableException <<exception>>
+  class ConflitReservationException <<exception>>
+}
+
+package "Accès aux données" {
+  class CreneauRepository {
+    + creer(terrain, date, heure_debut, heure_fin, prix) : int
+    + trouver(creneau_id : int) : Creneau
+    + bloquer_si_libre(creneau_id : int) : bool
+  }
+  class ReservationRepository {
+    + creer(joueur_id : int, creneau_id : int, statut : str) : int
+    + trouver(reservation_id : int) : Reservation
+  }
+}
+
+package "Domaine" {
+  class Creneau <<entity>> {
+    id : int
+    terrain : str
+    date : str
+    heure_debut : str
+    heure_fin : str
+    prix : float
+    statut : LIBRE | RESERVE
+  }
+  class Reservation <<entity>> {
+    id : int
+    joueur_id : int
+    statut : EN_ATTENTE_PAIEMENT
+    date_creation : str
+  }
+}
+
+ReservationController ..> ReservationRequest : reçoit
+ReservationController --> ReservationService : appelle
+ReservationService *-- CreneauRepository
+ReservationService *-- ReservationRepository
+ReservationService ..> CreneauIntrouvableException : lève
+ReservationService ..> ConflitReservationException : lève
+CreneauRepository ..> Creneau : gère
+ReservationRepository ..> Reservation : gère
+Reservation "0..1" --> "1" Creneau : concerne
+@enduml

@@ -1,0 +1,26 @@
+@startuml y-2tup
+title PadelBook - Cycle en Y (2TUP)
+skinparam rectangle {
+  RoundCorner 15
+}
+
+rectangle "**Branche fonctionnelle**\nCapture des besoins fonctionnels\n- vision.md\n- diagramme UC (uc.puml)\n- exigences.md (colonne Fonctionnel)" as F
+rectangle "**Branche technique**\nCapture des besoins techniques\n- exigences.md (colonne Technique :\n  performance, plateforme, sécurité, intégration)" as T
+
+rectangle "**Analyse**\n- fiche UC3 (fiche-uc3.md)" as A
+rectangle "**Architecture**\n- architecture.md\n- route de bout en bout UC3 (v0.1-elaboration)" as AR
+
+rectangle "**Conception = FUSION des deux branches**\n- diagramme de classes (classes-uc3.puml)\n- diagramme de séquence (sequence-uc3.puml)" as C #LightYellow
+
+rectangle "**Codage**\n- couches contrôleur / service / repositories" as CO
+rectangle "**Tests**\n- tests unitaires + intégration\n- CI GitHub Actions" as TE
+rectangle "**Recette**\n- revue croisée (PR)\n- v0.2-construction" as R
+
+F -down-> A
+T -down-> AR
+A -down-> C
+AR -down-> C
+C -down-> CO
+CO -down-> TE
+TE -down-> R
+@enduml

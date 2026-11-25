@@ -1,4 +1,4 @@
-@startuml
+@startuml usecase_diagram
 title PadelBook - Diagramme de cas d'utilisation
 left to right direction
 actor Joueur

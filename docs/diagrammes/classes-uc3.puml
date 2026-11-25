@@ -1,4 +1,4 @@
-@startuml
+@startuml classes-uc3
 title PadelBook - Diagramme de classes UC3 (Réserver un créneau)
 skinparam classAttributeIconSize 0
 

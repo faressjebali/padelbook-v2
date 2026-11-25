@@ -1,0 +1,46 @@
+@startuml
+title PadelBook - Diagramme de séquence UC3 (Réserver un créneau)
+autonumber
+
+actor Joueur
+participant ReservationController as Ctrl
+participant ReservationService as Service
+participant CreneauRepository as CreneauRepo
+participant ReservationRepository as ResaRepo
+database "Base SQLite" as DB
+
+Joueur -> Ctrl : POST /reservations (joueur_id, creneau_id)
+Ctrl -> Service : reserver(joueur_id, creneau_id)
+
+Service -> CreneauRepo : trouver(creneau_id)
+CreneauRepo -> DB : SELECT créneau
+DB --> CreneauRepo : créneau
+CreneauRepo --> Service : créneau
+
+alt A1 - créneau inexistant
+  Service --> Ctrl : CreneauIntrouvableException
+  Ctrl --> Joueur : 404 Créneau introuvable
+else créneau trouvé
+  group transaction (BEGIN IMMEDIATE)
+    Service -> CreneauRepo : bloquer_si_libre(creneau_id)
+    CreneauRepo -> DB : UPDATE ... WHERE statut = 'LIBRE'
+    DB --> CreneauRepo : lignes modifiées
+    CreneauRepo --> Service : true / false
+
+    alt A2 - créneau déjà réservé (false)
+      Service -> DB : rollback
+      Service --> Ctrl : ConflitReservationException
+      Ctrl --> Joueur : 409 Créneau déjà réservé
+    else créneau bloqué (true)
+      Service -> ResaRepo : creer(joueur_id, creneau_id, EN_ATTENTE_PAIEMENT)
+      ResaRepo -> DB : INSERT réservation
+      ResaRepo --> Service : reservation_id
+      Service -> DB : commit
+      Service --> Ctrl : réservation
+      Ctrl --> Joueur : 201 Réservation en attente de paiement
+    end
+  end
+end
+
+note over Joueur, Ctrl : Étape 7 : le joueur enchaîne sur le paiement (UC4)
+@enduml
